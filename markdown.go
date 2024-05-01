@@ -108,7 +108,7 @@ func (m Model) renderImageFromUrl(url string) (string, bool) {
 
 func (m Model) renderImageLocal(path string) (string, bool) {
 	if m.RootPath != "" {
-		path = m.RootPath + path
+		path = m.RootPath + "/" + path
 	}
 
 	file, err := os.Open(path)
