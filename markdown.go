@@ -27,6 +27,7 @@ func (m Model) Render() string {
 	glamourRender, err := glamour.NewTermRenderer(
 		glamour.WithAutoStyle(),
 		glamour.WithEmoji(),
+		glamour.WithPreservedNewLines(),
 	)
 
 	if err != nil {
@@ -95,7 +96,7 @@ func (m Model) renderImageFromUrl(url string) (string, bool) {
 
 	contentType := resp.Header.Get("Content-Type")
 	if strings.HasPrefix(contentType, "image/") {
-		img := aimg.NewImage(m.Width - (m.Width / 4))
+		img := aimg.NewImage(m.Width - (m.Width / 2))
 		img.ParseReader(resp.Body)
 
 		ansiImage := addPaddingToLeft(img.String())
@@ -119,7 +120,7 @@ func (m Model) renderImageLocal(path string) (string, bool) {
 
 	defer file.Close()
 
-	img := aimg.NewImage(m.Width - (m.Width / 4))
+	img := aimg.NewImage(m.Width - (m.Width / 2))
 	img.ParseReader(file)
 
 	ansiImage := addPaddingToLeft(img.String())
